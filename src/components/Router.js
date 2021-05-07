@@ -4,6 +4,8 @@ import StorePicker from "./StorePicker";
 import App from "./App";
 import NotFound from "./NotFound";
 
+// Everything in React is a component, even the Router is a component.
+// The switch tag 
 
 const Router = () => (
     <BrowserRouter>
