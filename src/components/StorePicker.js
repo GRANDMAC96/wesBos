@@ -18,8 +18,10 @@ class StorePicker extends React.Component {
         event.preventDefault();
         // 2. get text from input. Here "current" is react thing (its part of the object) and "value" is a javascript thing.
         const storeName = this.myInput.current.value;
-        // 3. change the page to /store/whatever they entered. NB* we don't want to refresh the page, just change the url. We need to access React Router.
+        // 3. change the page to /store/whatever they entered. 
+        // NB* we don't want to refresh the page, just change the url. We need to access React Router.
         this.props.history.push(`/store/${storeName}`);
+        // note how fast the change is when you go back and forward in the browser. This is because you are not reloading the page, you are just using something called push state.
     }
 
 
