@@ -22,7 +22,7 @@ class AddFishForm extends React.Component {
         this.props.addFish(fish);
         // Finally refresh the page
         // Here currentTarget refers to the form tag and the reset() method resets the form.
-        // NB* state resets when you refresh the page
+        // NB* state resets when you refresh the page.
         event.currentTarget.reset();
     }
 
