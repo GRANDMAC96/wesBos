@@ -38,6 +38,18 @@ class App extends React.Component {
         })
     };
 
+    addToOrder = (key) => {
+        // 1. take a copy of existing state
+        const order = { ...this.state.order };
+        // Either add to order or update the order
+        // If this particular fish exists in your order then it adds 1 or it just returns 1. The or operator (||) is used to create this logic 
+        order[key] = order[key] + 1 || 1
+        // Call setState() to update our state object
+        this.setState({
+            order: order
+        })
+    }
+
     render() {
         return (
             <div className="catch-of-the-day">
@@ -45,7 +57,14 @@ class App extends React.Component {
                     <Header tagline="Catch of the Day" />
                     <ul className="fishes">
                         {/* Object.keys turns the fishes object into an array which you can loop over */}
-                        {Object.keys(this.state.fishes).map(key => <Fish key={key} details={this.state.fishes[key]} />)}
+                        {Object.keys(this.state.fishes).map(key => (
+                            <Fish
+                                index={key}
+                                key={key}
+                                details={this.state.fishes[key]}
+                                addToOrder={this.addToOrder}
+                            />
+                        ))}
                     </ul>
                 </div>
                 <Order></Order>
