@@ -5,8 +5,14 @@ class Order extends React.Component {
     renderOrder = key => {
         const fish = this.props.fishes[key];
         const count = this.props.order[key];
+
         // Before we return this list item we need to check if that fish is available 
-        const isAvailable = fish.status === 'available';
+        const isAvailable = fish && fish.status === 'available';
+
+        // We also need to check if the fish is loaded before we continue
+        if (!fish) return null;
+        // This just returns nothing so that when we reload the page our localstorage is prevented from displaying our fish for a split second
+
         if (!isAvailable) {
             return <li key={key}> Sorry {fish ? fish.name : 'fish'} is no longer available!</li>
         }
