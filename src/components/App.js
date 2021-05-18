@@ -17,11 +17,31 @@ class App extends React.Component {
 
     componentDidMount() {
         const { params } = this.props.match;
+
+        // first reinstate local storage
+        const localStorageRef = localStorage.getItem(params.storeId);
+        if (localStorageRef) {
+            this.setState({ order: JSON.parse(localStorageRef) });
+        }
+
         this.ref = base.syncState(`${params.storeId}/fishes`, {
             context: this,
             state: 'fishes'
         });
-    };
+    }
+
+    // We need to use componentDidUpdate() becuase it runs whenever someone updates something, its not called for the initial render
+
+    componentDidUpdate() {
+        // how do we set this.state.order (the state of the order) in our local storage
+        // We want to set the order for that particular store so we do what did in componentDidMount() and get hold of the particular store via the storeId
+        localStorage.setItem(
+            this.props.match.params.storeId,
+            JSON.stringify(this.state.order)
+        );
+        // The only issue with this is that when you refresh the page componentDidMount() runs which changes state.
+        // This then triggers componentDidUpdate()
+    }
 
     // If you go back and into another store you've created two stores. If your user does this then you never clean up what was present at a particular store...
     // therefore we use another lifecycle method
