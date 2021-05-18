@@ -4,12 +4,24 @@ import Inventory from "./Inventory";
 import Order from "./Order";
 import sampleFishes from "../sample-fishes";
 import Fish from "./Fish";
-
+import base from "../base";
 
 class App extends React.Component {
     state = {
-        fishes: [],
+        fishes: {},
         order: {}
+    };
+
+    // Lifecycle methods
+    // this ref is different to the inputs we have in our app. This ref refers to the database in firebase.
+
+    componentDidMount() {
+        const { params } = this.props.match;
+        this.ref = base.syncState(`${params.storeId}/fishes`, {
+            context: this,
+            state: 'fishes'
+        });
+        console.log('mounted');
     };
 
     // We can't add to state in through each individual component.
