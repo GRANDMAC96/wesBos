@@ -21,7 +21,6 @@ class App extends React.Component {
             context: this,
             state: 'fishes'
         });
-        console.log('mounted');
     };
 
     // We can't add to state in through each individual component.
