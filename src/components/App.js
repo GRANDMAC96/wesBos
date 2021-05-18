@@ -23,6 +23,13 @@ class App extends React.Component {
         });
     };
 
+    // If you go back and into another store you've created two stores. If your user does this then you never clean up what was present at a particular store...
+    // therefore we use another lifecycle method
+
+    componentWillUnmount() {
+        base.removeBinding(this.ref);
+    }
+
     // We can't add to state in through each individual component.
     // Any function that updates state needs to live in the same component where state lives. Which as you can see, state lives above this line.
 
