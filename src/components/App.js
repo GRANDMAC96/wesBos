@@ -81,7 +81,7 @@ class App extends React.Component {
         })
     }
 
-    deleteFish = () => {
+    deleteFish = (key) => {
         // take a copy of state
         const fishes = { ...this.state.fishes }
         // update the state
@@ -90,6 +90,20 @@ class App extends React.Component {
         // update state
         this.setState({
             fishes: fishes
+        })
+    }
+
+    removeFromOrder = (key) => {
+        // take a copy of state
+        const order = { ...this.state.order };
+        console.log(order);
+        // The or operator (||) is used to create this logic to remove order item from order
+        // order[key] = order[key] - 1 || 0 
+        // You can also do it this way...
+        delete order[key];
+        // Remember state needs to be updated. Therefore we call setState() to update our state object
+        this.setState({
+            order: order
         })
     }
 
@@ -130,10 +144,12 @@ class App extends React.Component {
                 </div>
                 <Order
                     {...this.state}
+                    removeFromOrder={this.removeFromOrder}
                 ></Order>
                 <Inventory
                     addFish={this.addFish}
                     updateFish={this.updateFish}
+                    deleteFish={this.deleteFish}
                     loadSampleFishes={this.loadSampleFishes}
                     fishes={this.state.fishes}
                 ></Inventory>
