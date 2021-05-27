@@ -15,14 +15,20 @@ class Order extends React.Component {
         // This just returns nothing so that when we reload the page our localstorage is prevented from displaying our fish for a split second
 
         if (!isAvailable) {
-            return <li key={key}> Sorry {fish ? fish.name : 'fish'} is no longer available!</li>
+            return <CSSTransition classNames="order" key={key} timeout={{ enter: 5000, exit: 5000 }}>
+                <li key={key}>
+                    Sorry {fish ? fish.name : 'fish'} is no longer available!
+                </li>
+            </CSSTransition>
         }
         return (
-            <li key={key}>
-                {count} lbs {fish.name}
-                {formatPrice(count * fish.price)}
-                <button onClick={() => this.props.removeFromOrder(key)}>&times; </button>
-            </li>
+            <CSSTransition classNames="order" key={key} timeout={{ enter: 5000, exit: 5000 }}>
+                <li key={key}>
+                    {count} lbs {fish.name}
+                    {formatPrice(count * fish.price)}
+                    <button onClick={() => this.props.removeFromOrder(key)}>&times; </button>
+                </li>
+            </CSSTransition>
         )
     };
     render() {
