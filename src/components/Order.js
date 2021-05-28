@@ -7,6 +7,12 @@ class Order extends React.Component {
         const fish = this.props.fishes[key];
         const count = this.props.order[key];
 
+        const transitionOptions = {
+            classNames: "order",
+            key: key,
+            timeout: { enter: 500, exit: 500 }
+        }
+
         // Before we return this list item we need to check if that fish is available 
         const isAvailable = fish && fish.status === 'available';
 
@@ -15,20 +21,28 @@ class Order extends React.Component {
         // This just returns nothing so that when we reload the page our localstorage is prevented from displaying our fish for a split second
 
         if (!isAvailable) {
-            return <CSSTransition classNames="order" key={key} timeout={{ enter: 5000, exit: 5000 }}>
+            return <CSSTransition {...transitionOptions}>
                 <li key={key}>
                     Sorry {fish ? fish.name : 'fish'} is no longer available!
                 </li>
             </CSSTransition>
         }
+
         return (
-            <CSSTransition classNames="order" key={key} timeout={{ enter: 5000, exit: 5000 }}>
+            <CSSTransition classNames="order" key={key} timeout={{ enter: 500, exit: 500 }}>
                 <li key={key}>
-                    {count} lbs {fish.name}
-                    {formatPrice(count * fish.price)}
-                    <button onClick={() => this.props.removeFromOrder(key)}>&times; </button>
+                    <span>
+                        <TransitionGroup component="span" className="count">
+                            <CSSTransition {...transitionOptions}>
+                                <span>{count}</span>
+                            </CSSTransition>
+                        </TransitionGroup>
+                        lbs {fish.name}
+                        {formatPrice(count * fish.price)}
+                        <button onClick={() => this.props.removeFromOrder(key)}>&times; </button>
+                    </span>
                 </li>
-            </CSSTransition>
+            </CSSTransition >
         )
     };
     render() {
