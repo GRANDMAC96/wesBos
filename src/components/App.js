@@ -2,6 +2,7 @@ import React from "react";
 import Header from "./Header";
 import Inventory from "./Inventory";
 import Order from "./Order";
+import PropTypes from "prop-types";
 import sampleFishes from "../sample-fishes";
 import Fish from "./Fish";
 import base from "../base";
@@ -11,6 +12,10 @@ class App extends React.Component {
         fishes: {},
         order: {}
     };
+
+    static propTypes = {
+        match: PropTypes.object,
+    }
 
     // Lifecycle methods
     // this ref is different to the inputs we have in our app. This ref refers to the database in firebase.
